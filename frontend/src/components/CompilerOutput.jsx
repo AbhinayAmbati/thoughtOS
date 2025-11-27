@@ -144,8 +144,9 @@ const CompilerOutput = ({ data }) => {
                                                         </div>
                                                         <div className="space-y-2">
                                                             {wf.elements.map((el, eIdx) => (
-                                                                <div key={eIdx} className="bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-xs text-gray-600 text-center group-hover:bg-purple-50 group-hover:text-purple-700 group-hover:border-purple-100 transition-colors">
-                                                                    {el}
+                                                                <div key={eIdx} className="bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-xs text-gray-600 text-center group-hover:bg-purple-50 group-hover:text-purple-700 group-hover:border-purple-100 transition-colors flex items-center justify-center gap-2">
+                                                                    <span className="opacity-50 text-[10px] uppercase tracking-wider">{typeof el === 'object' ? el.type : 'el'}</span>
+                                                                    <span className="font-medium truncate max-w-[100px]">{typeof el === 'object' ? el.content : el}</span>
                                                                 </div>
                                                             ))}
                                                         </div>

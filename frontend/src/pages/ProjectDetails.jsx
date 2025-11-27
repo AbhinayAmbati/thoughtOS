@@ -43,8 +43,8 @@ const ProjectDetails = () => {
                                 <p className="text-gray-600 text-lg">{project.description}</p>
                             </div>
                             <span className={`px-3 py-1 rounded-full text-sm font-semibold ${project.status === 'Active' ? 'bg-green-100 text-green-700' :
-                                    project.status === 'Completed' ? 'bg-blue-100 text-blue-700' :
-                                        'bg-yellow-100 text-yellow-700'
+                                project.status === 'Completed' ? 'bg-blue-100 text-blue-700' :
+                                    'bg-yellow-100 text-yellow-700'
                                 }`}>
                                 {project.status}
                             </span>
@@ -128,8 +128,9 @@ const ProjectDetails = () => {
                                                 </div>
                                                 <div className="space-y-2">
                                                     {wf.elements.map((el, eIdx) => (
-                                                        <div key={eIdx} className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 text-center shadow-sm group-hover:border-purple-200 group-hover:text-purple-700 transition-colors">
-                                                            {el}
+                                                        <div key={eIdx} className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 text-center shadow-sm group-hover:border-purple-200 group-hover:text-purple-700 transition-colors flex items-center justify-center gap-2">
+                                                            <span className="opacity-50 text-[10px] uppercase tracking-wider">{typeof el === 'object' ? el.type : 'el'}</span>
+                                                            <span className="font-medium truncate max-w-[150px]">{typeof el === 'object' ? el.content : el}</span>
                                                         </div>
                                                     ))}
                                                 </div>

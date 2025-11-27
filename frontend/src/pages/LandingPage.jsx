@@ -209,6 +209,83 @@ const LandingPage = () => {
                 </div>
             </section>
 
+            {/* Detailed Features Grid */}
+            <section className="py-20 px-4 bg-gray-900 text-white">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4">Everything You Need to Build Faster</h2>
+                        <p className="text-gray-400 max-w-2xl mx-auto">
+                            Powerful tools that adapt to your workflow, not the other way around.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {[
+                            { title: "Smart Context", desc: "The AI remembers your previous thoughts to build a cohesive knowledge base.", icon: Brain },
+                            { title: "Auto-Prioritization", desc: "Tasks are automatically ranked by urgency and impact.", icon: CheckCircle },
+                            { title: "Visual Wireframing", desc: "Describe a UI and get a visual mockup instantly.", icon: Layout },
+                            { title: "Tech Stack Advice", desc: "Get recommendations for the best tools for your specific project.", icon: Layers },
+                            { title: "Document Generation", desc: "PRDs, RFCs, and Readmes generated in seconds.", icon: Globe },
+                            { title: "Secure & Private", desc: "Your data is encrypted and never shared with third parties.", icon: CheckCircle },
+                            { title: "Export Anywhere", desc: "Sync your tasks to Jira, Linear, or Notion (Coming Soon).", icon: ArrowRight },
+                            { title: "Real-time Collaboration", desc: "Share your workspace with your team effortlessly.", icon: Zap }
+                        ].map((feature, idx) => (
+                            <div key={idx} className="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-blue-500 transition-colors group">
+                                <feature.icon className="w-8 h-8 text-blue-500 mb-4 group-hover:scale-110 transition-transform" />
+                                <h3 className="font-bold text-lg mb-2">{feature.title}</h3>
+                                <p className="text-gray-400 text-sm">{feature.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Testimonials */}
+            <section className="py-20 px-4 bg-white">
+                <div className="max-w-7xl mx-auto">
+                    <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">Loved by Builders</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            { name: "Sarah Chen", role: "Product Manager", text: "ThoughtOS cut my spec writing time by 80%. It's like having a super-smart assistant." },
+                            { name: "Alex Rivera", role: "Indie Hacker", text: "I went from idea to wireframe in 5 minutes. The AI understands exactly what I mean." },
+                            { name: "Jordan Smith", role: "Tech Lead", text: "Finally, a tool that structures my messy engineering notes into actionable tickets." }
+                        ].map((testimonial, idx) => (
+                            <div key={idx} className="bg-gray-50 p-8 rounded-2xl border border-gray-100">
+                                <div className="flex gap-1 mb-4">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <div key={star} className="w-4 h-4 bg-yellow-400 rounded-full"></div>
+                                    ))}
+                                </div>
+                                <p className="text-gray-700 mb-6 italic">"{testimonial.text}"</p>
+                                <div>
+                                    <div className="font-bold text-gray-900">{testimonial.name}</div>
+                                    <div className="text-sm text-gray-500">{testimonial.role}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="py-20 px-4">
+                <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-12 text-center text-white shadow-2xl relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                    <div className="relative z-10">
+                        <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to Organize Your Mind?</h2>
+                        <p className="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">
+                            Join thousands of creators who are turning their thoughts into reality with ThoughtOS.
+                        </p>
+                        <Link
+                            to="/register"
+                            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+                        >
+                            Start Building Now <ArrowRight className="w-5 h-5" />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
             {/* Footer */}
             <footer className="bg-white border-t border-gray-200 py-12 px-4">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">

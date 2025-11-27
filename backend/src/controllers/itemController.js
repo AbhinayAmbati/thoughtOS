@@ -10,14 +10,36 @@ export const saveItems = async (req, res) => {
       projects: []
     };
 
-    if (projects && projects.length > 0) {
-      const projectDocs = await Project.insertMany(projects);
+    if (projects && Array.isArray(projects) && projects.length > 0) {
+      // Ensure wireframes have required fields if missing
+      const sanitizedProjects = projects.map(p => ({
+        ...p,
+        wireframes: p.wireframes?.map(wf => ({
+          ...wf,
+          elements: wf.elements?.map(el => {
+            if (typeof el === 'string') {
+              return { type: 'text', content: el, x: 0, y: 0, width: 100, height: 40 };
+            }
+            // Ensure required fields exist
+            return {
+              type: el.type || 'container',
+              content: el.content || '',
+              x: el.x || 0,
+              y: el.y || 0,
+              width: el.width || 100,
+              height: el.height || 40,
+              style: el.style || {},
+              id: el.id || Math.random().toString(36).substr(2, 9)
+            };
+          })
+        }))
+      }));
+      console.log("Saving Projects:", JSON.stringify(sanitizedProjects, null, 2));
+      const projectDocs = await Project.insertMany(sanitizedProjects);
       savedResults.projects = projectDocs;
     }
 
-    if (tasks && tasks.length > 0) {
-      // If tasks are linked to projects (by name in the thought), we might need logic here.
-      // For now, we just save them.
+    if (tasks && Array.isArray(tasks) && tasks.length > 0) {
       const taskDocs = await Task.insertMany(tasks);
       savedResults.tasks = taskDocs;
     }
@@ -25,7 +47,11 @@ export const saveItems = async (req, res) => {
     res.status(201).json({ success: true, data: savedResults });
   } catch (error) {
     console.error("Error saving items:", error);
-    res.status(500).json({ message: 'Server Error', error: error.message });
+    // Log validation errors specifically
+    if (error.name === 'ValidationError') {
+      console.error("Validation Error Details:", JSON.stringify(error.errors, null, 2));
+    }
+    res.status(500).json({ message: 'Server Error', error: error.message, details: error.errors });
   }
 };
 

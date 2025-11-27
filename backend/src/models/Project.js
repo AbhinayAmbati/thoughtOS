@@ -18,7 +18,7 @@ const projectSchema = new mongoose.Schema({
     height: { type: Number, default: 812 },
     elements: [{
       id: String,
-      type: { type: String, enum: ['text', 'button', 'input', 'image', 'container', 'icon'] },
+      type: { type: String },
       content: String,
       x: { type: Number, default: 0 },
       y: { type: Number, default: 0 },

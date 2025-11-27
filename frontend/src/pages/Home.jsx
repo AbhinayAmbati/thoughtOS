@@ -17,29 +17,20 @@ const Home = () => {
             const response = await axios.post('http://localhost:5000/api/thoughts/compile', {
                 text: thoughtText
             });
-            setCompiledData(response.data.data.processedData);
+            const data = response.data.data.processedData;
+            setCompiledData(data);
+
+            // Auto-save immediately
+            await axios.post('http://localhost:5000/api/items/save', {
+                tasks: data.tasks,
+                projects: data.projects
+            });
+
         } catch (error) {
-            console.error("Error compiling thought:", error);
-            alert("Failed to compile thought. Please try again.");
+            console.error("Error compiling/saving thought:", error);
+            alert("Failed to process thought. Please try again.");
         } finally {
             setIsCompiling(false);
-        }
-    };
-
-    const handleSave = async () => {
-        if (!compiledData) return;
-        setIsSaving(true);
-        try {
-            await axios.post('http://localhost:5000/api/items/save', {
-                tasks: compiledData.tasks,
-                projects: compiledData.projects
-            });
-            navigate('/dashboard');
-        } catch (error) {
-            console.error("Error saving items:", error);
-            alert("Failed to save items.");
-        } finally {
-            setIsSaving(false);
         }
     };
 
@@ -76,16 +67,6 @@ const Home = () => {
 
                 {compiledData && (
                     <div className="mt-12 relative">
-                        <div className="flex justify-center mb-8">
-                            <button
-                                onClick={handleSave}
-                                disabled={isSaving}
-                                className="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all font-semibold disabled:opacity-50"
-                            >
-                                <Save className="w-5 h-5" />
-                                {isSaving ? 'Saving...' : 'Accept & Save to Dashboard'}
-                            </button>
-                        </div>
                         <CompilerOutput data={compiledData} />
                     </div>
                 )}
